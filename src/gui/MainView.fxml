@@ -5,37 +5,36 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <children>
       <MenuBar>
         <menus>
           <Menu mnemonicParsing="false" text="Alunos">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Novo" />
-              <MenuItem mnemonicParsing="false" text="Listagem" />
+                  <MenuItem fx:id="menuItemAlunoNovo" mnemonicParsing="false" onAction="#menuItemAlunoNovoAction" text="Novo" />
+              <MenuItem fx:id="menuItemAlunoListagem" mnemonicParsing="false" onAction="#menuItemAlunoListagemAction" text="Listagem" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Turmas">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Nova" />
-                  <MenuItem mnemonicParsing="false" text="Listagem" />
+                  <MenuItem fx:id="menuItemTurmaNova" mnemonicParsing="false" onAction="#menuItemTurmaNovaAction" text="Nova" />
+                  <MenuItem fx:id="menuItemTurmaListagem" mnemonicParsing="false" onAction="#menuItemTurmaListagemAction" text="Listagem" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Conteúdos">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Novo" />
-                  <MenuItem mnemonicParsing="false" text="Listagem" />
+                  <MenuItem fx:id="menuItemConteudoNovo" mnemonicParsing="false" onAction="#menuItemConteudoNovoAction" text="Novo" />
+                  <MenuItem fx:id="menuItemConteudoListagem" mnemonicParsing="false" onAction="#menuItemConteudoListagemAction" text="Listagem" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Presenças">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Registrar Presenças" />
+                  <MenuItem fx:id="menuItemPresenca" mnemonicParsing="false" onAction="#menuItemPresencaAction" text="Registrar Presenças" />
                </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" onAction="#menuItemAboutAction" text="About" />
             </items>
           </Menu>
         </menus>
