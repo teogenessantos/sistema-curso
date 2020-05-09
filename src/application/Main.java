@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,12 @@ public class Main extends Application {
 			mainScene = new Scene(parent);
 			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("Controle de presenças - Curso de Francês");
+			
+			URL cssURL = getClass().getResource("aplication.css");
+            if (cssURL != null) {
+            	mainScene.getStylesheets().add(cssURL.toExternalForm());
+            }
+			
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

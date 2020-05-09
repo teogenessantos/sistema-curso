@@ -48,7 +48,7 @@ public class MainViewController implements Initializable{
 	
 	@FXML
 	public void menuItemAlunoListagemAction() {
-		System.out.println("teste2");
+		loadView("/gui/ListagemAlunoView.fxml");
 	}
 	
 	@FXML
