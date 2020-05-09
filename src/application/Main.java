@@ -10,18 +10,24 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	
+	private static Scene mainScene;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/MainView.fxml"));
 			Parent parent = loader.load();
-			Scene mainScene = new Scene(parent);
+			mainScene = new Scene(parent);
 			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("Controle de presenças - Curso de Francês");
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static Scene getMainScene() {
+		return mainScene;
 	}
 
 	public static void main(String[] args) {
