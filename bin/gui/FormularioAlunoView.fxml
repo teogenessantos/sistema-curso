@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FormularioAlunoController">
    <children>
       <Label layoutX="30.0" layoutY="30.0" text="Cadastro de Alunos">
          <font>
@@ -41,11 +41,11 @@
             <Label text="Email" GridPane.rowIndex="2" />
             <Label text="Telefone" GridPane.rowIndex="3" />
             <Label text="Turma" GridPane.rowIndex="4" />
-            <TextField editable="false" maxWidth="370.0" prefHeight="27.0" prefWidth="373.0" GridPane.columnIndex="1" />
-            <TextField maxWidth="370.0" prefHeight="26.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField maxWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField maxWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox maxWidth="370.0" prefHeight="26.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtId" editable="false" maxWidth="370.0" prefHeight="27.0" prefWidth="373.0" GridPane.columnIndex="1" />
+            <TextField fx:id="txtNome" maxWidth="370.0" prefHeight="26.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtEmail" maxWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtTelefone" maxWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="comboBoxTurma" maxWidth="370.0" prefHeight="26.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.20001220703125" minWidth="10.0" prefWidth="92.80002155303956" />
@@ -55,31 +55,26 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" text="Inserir" />
-                  <Button mnemonicParsing="false" prefWidth="80.0" text="Cancelar" GridPane.columnIndex="1" />
+                  <Button fx:id="btSalvar" mnemonicParsing="false" onAction="#onBtSalvarAction" prefHeight="26.0" prefWidth="80.0" text="Salvar" />
+                  <Button fx:id="btCancelar" mnemonicParsing="false" onAction="#onBtCancelarAction" prefWidth="80.0" text="Cancelar" GridPane.columnIndex="1" />
                </children>
             </GridPane>
-            <Label textFill="RED" GridPane.columnIndex="2">
+            <Label fx:id="labelErrorNome" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label fx:id="labelErrorEmail" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Label fx:id="labelErrorTelefone" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </Label>
-            <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Label fx:id="labelErrorTurma" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
