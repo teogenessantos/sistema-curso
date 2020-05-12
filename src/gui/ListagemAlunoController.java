@@ -56,7 +56,8 @@ public class ListagemAlunoController implements Initializable {
 	
 	public void onBtNovoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/FormularioAlunoView.fxml", parentStage);
+		Aluno aluno = new Aluno();
+		createDialogForm(aluno,"/gui/FormularioAlunoView.fxml", parentStage);
 	}
 	
 	@Override
@@ -84,10 +85,14 @@ public class ListagemAlunoController implements Initializable {
 		tableViewAluno.setItems(obsAlunoList);
 	}
 	
-	public void createDialogForm(String absoluteName, Stage parentStage) {
+	public void createDialogForm(Aluno aluno, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			FormularioAlunoController formularioAlunoController = loader.getController();
+			formularioAlunoController.setAluno(aluno);
+			formularioAlunoController.updateData();
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Controle de Alunos");

@@ -10,9 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Aluno;
 import model.entities.Turma;
 
 public class FormularioAlunoController implements Initializable {
+	
+	private Aluno aluno;
 	
 	@FXML
 	private TextField txtId;
@@ -47,6 +50,10 @@ public class FormularioAlunoController implements Initializable {
 	@FXML
 	private Button btCancelar;
 	
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+	
 	@FXML
 	public void onBtSalvarAction() {
 		System.out.println("onBtSalvarAction");
@@ -63,10 +70,20 @@ public class FormularioAlunoController implements Initializable {
 	}
 	
 	public void initializeNodes() {
+		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtNome, 70);
 		Constraints.setTextFieldMaxLength(txtEmail, 70);
 		Constraints.setTextFieldMaxLength(txtTelefone, 13);
 		Constraints.setTextFieldInteger(txtTelefone);
 	}
-
+	
+	public void updateData() {
+		if(aluno == null) {
+			throw new IllegalStateException("Aluno está vazio.");
+		}
+		txtId.setText(String.valueOf(aluno.getId()));
+		txtNome.setText(aluno.getNome());
+		txtEmail.setText(aluno.getEmail());
+		txtTelefone.setText(aluno.getTelefone());
+	}
 }
