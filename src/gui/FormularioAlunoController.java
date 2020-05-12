@@ -3,19 +3,26 @@ package gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import gui.util.Alerts;
 import gui.util.Constraints;
+import gui.util.Utils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import model.entities.Aluno;
 import model.entities.Turma;
+import model.services.AlunoService;
 
 public class FormularioAlunoController implements Initializable {
 	
 	private Aluno aluno;
+	
+	private AlunoService alunoService;
 	
 	@FXML
 	private TextField txtId;
@@ -54,14 +61,41 @@ public class FormularioAlunoController implements Initializable {
 		this.aluno = aluno;
 	}
 	
-	@FXML
-	public void onBtSalvarAction() {
-		System.out.println("onBtSalvarAction");
+	public void setAlunoService(AlunoService alunoService) {
+		this.alunoService = alunoService;
+	}
+	
+	private Aluno getFormData() {
+		Aluno objAluno = new Aluno();
+		objAluno.setId((Long) Utils.parseToLong(txtId.getText()));
+		objAluno.setNome(txtNome.getText());
+		objAluno.setEmail(txtEmail.getText());
+		objAluno.setTelefone(txtTelefone.getText());		
+		
+		return objAluno;
 	}
 	
 	@FXML
-	public void onBtCancelarAction() {
-		System.out.println("onBtCancelarAction");
+	public void onBtSalvarAction(ActionEvent event) {
+		if(aluno == null) {
+			throw new IllegalStateException("Aluno está vazio.");
+		}
+		if(alunoService == null) {
+			throw new IllegalStateException("Serviço está vazio.");
+		}
+		try {
+			aluno = getFormData();
+			alunoService.saveOrUpdate(aluno);
+			Utils.currentStage(event).close();			
+		}
+		catch (Exception e) {
+			Alerts.showAlert("Erro ao salvar o objeto", null, e.getMessage(), AlertType.ERROR);
+		}
+	}
+
+	@FXML
+	public void onBtCancelarAction(ActionEvent event) {
+		Utils.currentStage(event).close();
 	}
 
 	@Override

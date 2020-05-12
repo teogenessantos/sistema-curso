@@ -15,4 +15,15 @@ public class AlunoService {
 		
 		return listAluno;
 	}
+	
+	public void saveOrUpdate(Aluno aluno) {
+		if(aluno.getId() == null) {
+			System.out.println("Interir objeto na base");
+			System.out.println(aluno);
+		}
+		else {
+			System.out.println("Atualizar objeto na base");
+			System.out.println(aluno);
+		}
+	}
 }

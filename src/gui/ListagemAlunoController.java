@@ -92,6 +92,7 @@ public class ListagemAlunoController implements Initializable {
 			
 			FormularioAlunoController formularioAlunoController = loader.getController();
 			formularioAlunoController.setAluno(aluno);
+			formularioAlunoController.setAlunoService(new AlunoService());
 			formularioAlunoController.updateData();
 			
 			Stage dialogStage = new Stage();
