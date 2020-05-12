@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Aluno;
 import model.services.AlunoService;
 
-public class ListagemAlunoController implements Initializable {
+public class ListagemAlunoController implements Initializable, DataChangeListener {
 
 	private AlunoService alunoService;
 	
@@ -93,6 +94,7 @@ public class ListagemAlunoController implements Initializable {
 			FormularioAlunoController formularioAlunoController = loader.getController();
 			formularioAlunoController.setAluno(aluno);
 			formularioAlunoController.setAlunoService(new AlunoService());
+			formularioAlunoController.subscribeDataChangeListener(this);
 			formularioAlunoController.updateData();
 			
 			Stage dialogStage = new Stage();
@@ -106,6 +108,11 @@ public class ListagemAlunoController implements Initializable {
 		catch (IOException e) {
 			Alerts.showAlert("IO Exception", "Erro para abrir janela", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
 	}
 
 }

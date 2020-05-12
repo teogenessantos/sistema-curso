@@ -2,21 +2,20 @@ package model.entities;
 
 import java.io.Serializable;
 
-public class Turma implements Serializable {
-	
+public class Department implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private String nome;
+	private String name;
 	
-	public Turma() {
+	public Department() {
 		
 	}
 
-	public Turma(Integer id, String nome) {
-		super();
+	public Department(Integer id, String name) {
 		this.id = id;
-		this.nome = nome;
+		this.name = name;
 	}
 
 	public Integer getId() {
@@ -27,12 +26,12 @@ public class Turma implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
@@ -51,7 +50,7 @@ public class Turma implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Turma other = (Turma) obj;
+		Department other = (Department) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -62,7 +61,7 @@ public class Turma implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Turma [id=" + id + ", nome=" + nome + "]";
+		return "Department [id=" + id + ", name=" + name + "]";
 	}
-
+	
 }

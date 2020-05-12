@@ -10,18 +10,9 @@ public class Utils {
 		return (Stage) ((Node) event.getSource()).getScene().getWindow();
 	}
 	
-	public static Integer parseToInt(String str) {
+	public static Integer tryParseToInt(String str) {
 		try {
 			return Integer.parseInt(str);
-		}
-		catch(NumberFormatException e){
-			return null;
-		}		
-	}
-	
-	public static Long parseToLong(String str) {
-		try {
-			return Long.parseLong(str);
 		}
 		catch(NumberFormatException e){
 			return null;

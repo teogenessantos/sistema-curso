@@ -6,7 +6,7 @@ public class Aluno implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
+	private Integer id;
 	private String nome;
 	private String email;
 	private String telefone;
@@ -16,7 +16,7 @@ public class Aluno implements Serializable {
 		
 	}
 
-	public Aluno(Long id, String nome, String email, String telefone) {
+	public Aluno(Integer id, String nome, String email, String telefone) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -24,11 +24,11 @@ public class Aluno implements Serializable {
 		this.telefone = telefone;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

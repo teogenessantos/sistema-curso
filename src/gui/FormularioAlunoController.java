@@ -1,21 +1,28 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
+import db.DbException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import model.entities.Aluno;
 import model.entities.Turma;
+import model.exceptions.ValidationException;
 import model.services.AlunoService;
 
 public class FormularioAlunoController implements Initializable {
@@ -23,6 +30,8 @@ public class FormularioAlunoController implements Initializable {
 	private Aluno aluno;
 	
 	private AlunoService alunoService;
+	
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
 	@FXML
 	private TextField txtId;
@@ -65,12 +74,33 @@ public class FormularioAlunoController implements Initializable {
 		this.alunoService = alunoService;
 	}
 	
+	public void subscribeDataChangeListener(DataChangeListener listener) {
+		dataChangeListeners.add(listener);
+	}
+	
 	private Aluno getFormData() {
 		Aluno objAluno = new Aluno();
-		objAluno.setId((Long) Utils.parseToLong(txtId.getText()));
+		
+		ValidationException exception = new ValidationException("Validação de erros");
+		
+		if(txtNome.getText() == null || txtNome.getText().trim().equals("")) {
+			exception.addError("nome", "Campo não pode ser vazio");
+		}
+		if(txtEmail.getText() == null || txtEmail.getText().trim().equals("")) {
+			exception.addError("email", "Campo não pode ser vazio");
+		}
+		if(txtTelefone.getText() == null || txtTelefone.getText().trim().equals("")) {
+			exception.addError("telefone", "Campo não pode ser vazio");
+		}
+		
+		objAluno.setId(Utils.tryParseToInt(txtId.getText()));
 		objAluno.setNome(txtNome.getText());
 		objAluno.setEmail(txtEmail.getText());
-		objAluno.setTelefone(txtTelefone.getText());		
+		objAluno.setTelefone(txtTelefone.getText());	
+		
+		if(exception.getErros().size()>0) {
+			throw exception;
+		}
 		
 		return objAluno;
 	}
@@ -86,10 +116,20 @@ public class FormularioAlunoController implements Initializable {
 		try {
 			aluno = getFormData();
 			alunoService.saveOrUpdate(aluno);
+			notifyDataChangeListeners(); 
 			Utils.currentStage(event).close();			
 		}
-		catch (Exception e) {
+		catch (DbException e) {
 			Alerts.showAlert("Erro ao salvar o objeto", null, e.getMessage(), AlertType.ERROR);
+		}
+		catch (ValidationException e) {
+			setErrorMessages(e.getErros());
+		}
+	}
+
+	private void notifyDataChangeListeners() {
+		for (DataChangeListener listener : dataChangeListeners) {
+			listener.onDataChanged();
 		}
 	}
 
@@ -119,5 +159,19 @@ public class FormularioAlunoController implements Initializable {
 		txtNome.setText(aluno.getNome());
 		txtEmail.setText(aluno.getEmail());
 		txtTelefone.setText(aluno.getTelefone());
+	}
+	
+	public void setErrorMessages(Map<String , String> errors) {
+		Set<String> fields = errors.keySet();
+		
+		if(fields.contains("nome")) {
+			labelErrorNome.setText(errors.get("nome"));
+		}
+		if(fields.contains("email")) {
+			labelErrorEmail.setText(errors.get("email"));
+		}
+		if(fields.contains("telefone")) {
+			labelErrorTelefone.setText(errors.get("telefone"));
+		}
 	}
 }
